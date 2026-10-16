@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple student assignment and task tracker.">
+  <title>Student Task Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">StudyTrack</div>
+    <span class="version" id="app-version">Version 1.0</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <p class="eyebrow">STUDENT DASHBOARD</p>
+      <h1>My Task Tracker</h1>
+      <p>Organize your assignments, track your progress, and stay on top of your studies.</p>
+    </section>
+
+    <section class="stats" aria-label="Task statistics">
+      <article class="stat-card">
+        <span>Total Tasks</span>
+        <strong id="total-count">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Pending</span>
+        <strong id="pending-count">0</strong>
+      </article>
+      <article class="stat-card">
+        <span>Completed</span>
+        <strong id="completed-count">0</strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Add a new task</h2>
+      <form id="task-form">
+        <div class="form-group">
+          <label for="task-title">Assignment or task name</label>
+          <input id="task-title" name="title" type="text"
+                 maxlength="100" placeholder="e.g. Finish the DevOps report"
+                 required>
+        </div>
+        <div class="form-group">
+          <label for="task-date">Due date</label>
+          <input id="task-date" name="dueDate" type="date" required>
+        </div>
+        <button class="primary-button" type="submit">+ Add Task</button>
+      </form>
+      <p id="form-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel">
+      <div class="task-heading">
+        <h2>My assignments</h2>
+        <label class="filter-label" for="task-filter">Show:
+          <select id="task-filter">
+            <option value="all">All tasks</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+        </label>
+      </div>
+      <ul id="task-list" class="task-list"></ul>
+      <p id="empty-message" class="empty-message">No tasks yet. Add your first assignment above!</p>
+    </section>
+
+    <footer>
+      <p>StudyTrack · A student productivity project</p>
+      <p id="save-status" aria-live="polite">Tasks are saved in this browser.</p>
+    </footer>
+  </main>
+</body>
+</html>
