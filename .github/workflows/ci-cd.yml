@@ -1,0 +1,47 @@
+
+name: Student Task Tracker CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate JavaScript syntax
+        run: node --check script.js
+
+      - name: Verify required files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f script.js
+          test -f Dockerfile
+
+      - name: Build Docker image
+        run: docker build -t student-task-tracker .
+
+      - name: Run container
+        run: docker run -d --name tracker -p 8080:80 student-task-tracker
+
+      - name: Test website response
+        run: |
+          for i in {1..10}; do
+            if curl --fail http://localhost:8080; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs tracker
+          exit 1
+
+      - name: Stop test container
+        if: always()
+        run: docker rm -f tracker
